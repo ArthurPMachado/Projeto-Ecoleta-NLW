@@ -8,5 +8,6 @@ module.exports = {
     },
     migrations: {
         directory: path.resolve(__dirname, 'source', 'database', 'migrations')
-    }
+    },
+    useNullAsDefault: true,
 };
