@@ -2,8 +2,7 @@ import express, { request, response } from 'express';
 
 const server = express();
 
-// Rota: endereço completo da requisição
-// Recursos: qual entidade estamos acessando do sistema
+server.use(express.json());
 
 const users = [
     'Arthur',
@@ -14,9 +13,11 @@ const users = [
 ];
 
 server.get('/users', (request, response) => {
-    console.log('Listagem de usuários');
+    const search = String(request.query.search);
 
-    response.json(users);
+    const filterUsers = search ? users.filter(user => user.includes(search)) : users;
+
+    return response.json(filterUsers);
 });
 
 server.get('/users/:id', (request, response) => {
@@ -28,11 +29,15 @@ server.get('/users/:id', (request, response) => {
 });
 
 server.post('/users', (request, response) => {
+    const data = request.body;
+
+    console.log(data);
+
     const user = {
-        name: 'Arthur',
-        surname: 'Machado',
-        email: 'arthurpereiramachado01@gmail.com',
-        age: 20
+        name: data.name,
+        surname: data.surname,
+        email: data.email,
+        age: data.age
     }
 
     return response.json(user);
