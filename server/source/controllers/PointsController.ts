@@ -43,6 +43,8 @@ export default class PointsController {
     
         await transaction('point_items').insert(pointItems);
     
+        await transaction.commit();
+
         return response.json({
             id: point_id,
             ...point
@@ -64,5 +66,23 @@ export default class PointsController {
             .select('items.titulo');
 
         return response.json({ point, items });
+    }
+    
+    async listAll(request: Request, response: Response) {
+        const { cidade, uf, items } = request.query;
+
+        const parsedItems = String(items)
+            .split(',')
+            .map(item => Number(item.trim()));
+
+        const points = await knex('points')
+            .join('point_items', 'points.id', '=', 'point_items.point_id')
+            .whereIn('point_items.item_id', parsedItems)
+            .where('cidade', String(cidade))
+            .where('uf', String(uf))
+            .distinct()
+            .select('points.*');
+
+        return response.json(points);
     }
 }

@@ -12,6 +12,7 @@ const itemsController = new ItemsController();
 
 // GET Routes
 routes.get('/items', itemsController.listAll);
+routes.get('/points', pointsController.listAll);
 routes.get('/points/:id', pointsController.listSingle);
 
 
