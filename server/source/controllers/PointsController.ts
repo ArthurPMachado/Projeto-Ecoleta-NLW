@@ -20,7 +20,7 @@ export default class PointsController {
         const transaction = await knex.transaction();
 
         const point = {
-            imagem: 'image-tmp',
+            imagem: 'https://images.unsplash.com/photo-1578916171728-46686eac8d58?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60',
             nome,
             email,
             whatsapp,
