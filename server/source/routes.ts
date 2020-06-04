@@ -2,7 +2,7 @@ import express, { request } from 'express';
 
 // Controllers Import
 import PointsController from './controllers/PointsController';
-import ItemsController from './controllers/itemsController';
+import ItemsController from './controllers/ItemsController';
 
 // listAll, listSingle, create, update, delete
 
