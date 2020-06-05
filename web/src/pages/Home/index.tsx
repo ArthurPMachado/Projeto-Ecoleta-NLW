@@ -1,4 +1,5 @@
 import React from 'react';
+import {} from 'react-icons';
 
 // Import css
 import './styles.css';
