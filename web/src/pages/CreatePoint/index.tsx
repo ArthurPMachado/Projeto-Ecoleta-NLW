@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FiArrowLeft } from 'react-icons/fi';
+import { Map, TileLayer, Marker} from 'react-leaflet';
 
 // Import Assets
 import './styles.css';
@@ -50,6 +51,9 @@ const CreatePoint = () => {
                     </div>
                 </fieldset>
 
+                <Map center={[-23.5267829, -46.5451525]} zoom={15}>
+                    <TileLayer />
+                </Map>
                 
                 <fieldset>
                     <legend>
