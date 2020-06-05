@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { FiArrowLeft } from 'react-icons/fi';
 import { Map, TileLayer, Marker} from 'react-leaflet';
 import api from '../../services/api';
+import axios from 'axios';
 
 // Import Assets
 import './styles.css';
@@ -15,13 +16,32 @@ interface Item {
     image_url: string;
 }
 
+interface IBGEUFResponse {
+    sigla: string;
+}
+
 const CreatePoint = () => {
     const [items, setItems] = useState<Item[]>([]);
+    const [ufs, setUfs] = useState<string[]>([]);
 
     useEffect(() => {
         api.get('items').then(response => {
             setItems(response.data);
         });
+    }, []);
+
+    useEffect(() => {
+        axios.get<IBGEUFResponse[]>('https://servicodados.ibge.gov.br/api/v1/localidades/estados')
+             .then(response => {
+                const ufSigla = response.data.map(uf => uf.sigla);
+
+                setUfs(ufSigla);
+            });
+    }, []);
+
+    // Carregar as cidades sempre que a UF mudar
+    useEffect(() => {
+
     }, []);
 
     return (
@@ -86,6 +106,9 @@ const CreatePoint = () => {
                             <label htmlFor="idUf">Estado (UF)</label>
                             <select name="uf" id="idUf">
                                 <option value="0">Selecione uma UF</option>
+                                {ufs.map(uf => (
+                                    <option key={uf} value={uf} >{uf}</option>
+                                ))}
                             </select>
                         </div>
                         <div className="field">
