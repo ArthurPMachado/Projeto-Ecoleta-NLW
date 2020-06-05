@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FiArrowLeft } from 'react-icons/fi';
 import { Map, TileLayer, Marker} from 'react-leaflet';
+import api from '../../services/api';
 
 // Import Assets
 import './styles.css';
@@ -9,6 +10,8 @@ import logo from '../../assets/logo.svg';
 
 
 const CreatePoint = () => {
+    useEffect(() => {}, );
+
     return (
         <div id="page-create-point">
             <header>
