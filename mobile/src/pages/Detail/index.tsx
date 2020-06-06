@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, TouchableOpacity, Image, Text } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Image, Text, SafeAreaView } from 'react-native';
 import Constants from 'expo-constants';
 import { useNavigation } from '@react-navigation/native';
 import { Feather as Icon, FontAwesome } from '@expo/vector-icons';
@@ -13,7 +13,7 @@ const Detail = () => {
   }
 
   return (
-    <>
+    <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.container}>
         <TouchableOpacity onPress={handleNavigateBack}>
             <Icon name="arrow-left" size={20} color="#34cb79" />
@@ -40,7 +40,7 @@ const Detail = () => {
           <Text style={styles.buttonText}>E-mail</Text>
         </RectButton>
       </View>
-    </>
+    </SafeAreaView>
   );
 };
 
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 32,
-    paddingTop: 20 + Constants.statusBarHeight,
+    paddingTop: 20,
   },
 
   pointImage: {
@@ -95,6 +95,7 @@ const styles = StyleSheet.create({
     borderTopWidth: StyleSheet.hairlineWidth,
     borderColor: '#999',
     paddingVertical: 20,
+    paddingBottom: 0,
     paddingHorizontal: 32,
     flexDirection: 'row',
     justifyContent: 'space-between'
