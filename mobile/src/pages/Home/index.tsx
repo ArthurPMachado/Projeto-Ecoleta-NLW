@@ -27,7 +27,7 @@ const Home = () => {
       <View style={styles.footer}>
         <RectButton
           style={styles.button}
-          onPress={() => handleNavigateToPoints}  
+          onPress={handleNavigateToPoints}  
         >
           <View style={styles.buttonIcon}>
             <Text>

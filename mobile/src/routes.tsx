@@ -20,6 +20,7 @@ const Routes = () => {
             backgroundColor: '#F0F0F5'
           }
         }}
+        initialRouteName="Home"
       >
         <AppStack.Screen name="Home" component={Home}/>
         <AppStack.Screen name="Points" component={Points}/>
@@ -29,4 +30,4 @@ const Routes = () => {
   );
 };
 
-export default Routes
+export default Routes;
