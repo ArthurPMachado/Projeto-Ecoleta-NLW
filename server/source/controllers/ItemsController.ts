@@ -9,7 +9,7 @@ export default class ItemsController {
             return {
                 id: item.id,
                 title: item.titulo,
-                image_url: `http://localhost:3300/uploads/${item.imagem}`
+                image_url: `http://192.168.1.101:3300/uploads/${item.imagem}`
             }
         })
     
