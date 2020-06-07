@@ -14,10 +14,19 @@ interface Item {
   image_url: string
 }
 
+interface Point {
+  id: number,
+  nome: string,
+  imagem: string,
+  latitude: number,
+  longitude: number,
+}
+
 const Points = () => {
   const navigation = useNavigation();
 
   const [items, setItems] = useState<Item[]>([]);
+  const [points, setPoints] = useState<Point[]>([]);
   const [selectedItems, setSelectedItems] = useState<number[]>([]);
   const [initialPosition, setInitialPosition] = useState<[number, number]>([0, 0]); 
 
@@ -48,14 +57,26 @@ const Points = () => {
     }
 
     loadPosition();
-  }, [])
+  }, []);
+
+  useEffect(() => {
+    api.get('points', {
+      params: {
+        cidade: 'São Paulo',
+        uf: 'SP',
+        items: [1, 2, 6]
+      }
+    }).then(response => {
+      setPoints(response.data);
+    });
+  });
 
   function handleNavigateBack() {
     navigation.goBack();
   }
 
-  function handleNavigateToDetail(){
-    navigation.navigate('Detail');
+  function handleNavigateToDetail(id: number){
+    navigation.navigate('Detail', { point_id: id });
   }
 
   function handleSelectItem(id: number) {
@@ -91,19 +112,22 @@ const Points = () => {
                longitudeDelta: 0.05,
              }}
            >
-             <Marker 
-               style={styles.mapMarker}
-               onPress={handleNavigateToDetail}
-               coordinate={{
-                 latitude: -23.5267829,
-                 longitude: -46.5451525
-               }}
-             >
+             {points.map(point => (
+               <Marker 
+                  key={String(point.id)}
+                  style={styles.mapMarker}
+                  onPress={() => handleNavigateToDetail(point.id)}
+                  coordinate={{
+                    latitude: point.latitude,
+                    longitude: point.longitude
+                  }}
+                >
                <View style={styles.mapMarkerContainer}>
-                 <Image style={styles.mapMarkerImage} source={{uri: 'https://images.unsplash.com/photo-1578916171728-46686eac8d58?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60'}}/>
-                 <Text style={styles.mapMarkerTitle}>Mercado</Text>
+                 <Image style={styles.mapMarkerImage} source={{uri: point.imagem}}/>
+                <Text style={styles.mapMarkerTitle}>{point.nome}</Text>
                </View>
              </Marker>
+             ))}
            </MapView>
           )}
         </View>
